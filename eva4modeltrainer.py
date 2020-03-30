@@ -78,7 +78,7 @@ class Test:
             correct = pred.eq(target.view_as(pred)).sum().item()
             self.stats.add_batch_test_stats(loss, correct, len(data))
 
-class Misclass:
+class Misclassified_images:
   def __init__(self, model, dataloader, stats):
     self.model = model
     self.dataloader = dataloader
