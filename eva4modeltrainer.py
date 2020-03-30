@@ -132,6 +132,6 @@ class ModelTrainer:
       if self.scheduler and not self.batch_scheduler and not isinstance(self.scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau):
         self.scheduler.step()
       pbar.write(f"Learning Rate = {lr:0.6f}")
-    self.misclass.run()
+    self.misclassified_images.run()
     # save stats for later lookup
     self.stats.save()
