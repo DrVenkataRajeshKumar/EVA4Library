@@ -118,7 +118,7 @@ class ModelTrainer:
     self.stats = ModelStats(model, statspath)
     self.train = Train(model, train_loader, optimizer, self.stats, self.scheduler if self.batch_scheduler else None, L1lambda)
     self.test = Test(model, test_loader, self.stats)
-    self.Misclassified_images = Misclassified_images(model, test_loader, self.stats)
+    self.misclassified_images = Misclassified_images(model, test_loader, self.stats)
 
   def run(self, epochs=10):
     pbar = tqdm_notebook(range(1, epochs+1), desc="Epochs")
