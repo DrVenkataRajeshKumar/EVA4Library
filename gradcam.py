@@ -1,5 +1,4 @@
 # https://github.com/kazuto1011/grad-cam-pytorch/blob/fd10ff7fc85ae064938531235a5dd3889ca46fed/grad_cam.py#L17
-
 from torch.nn import functional as F
 import cv2
 import torch
@@ -135,14 +134,14 @@ def PLOT(gcam_layers, images, labels, target_layers, class_names, image_size, pr
           plt.subplot(r, c, c+j+2)
           plt.imshow(img, interpolation='bilinear')
           plt.axis('off')
-
-
+          
+        
         heatmap = 1-gcam_layers[i][j].cpu().numpy()[0] # reverse the color map
         heatmap = np.uint8(255 * heatmap)
         heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_JET)
         superimposed_img = cv2.resize(cv2.addWeighted(img, 0.5, heatmap, 0.5, 0), (128,128))
         plt.subplot(r, c, (i+2)*c+j+2)
         plt.imshow(superimposed_img, interpolation='bilinear')
-
+        
         plt.axis('off')
     plt.show()
