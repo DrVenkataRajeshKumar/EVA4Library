@@ -6,6 +6,10 @@ class Albumentations:
     self.transforms=[]
     if Rotate is not None:
       self.transforms.append(A.Rotate(Rotate))
+    if PadIfNeeded is not None:
+      self.transforms.append(A.PadIfNeeded(PadIfNeeded))
+    if RandomCrop is not None:
+      self.transforms.append(A.RandomCrop(RandomCrop))  
     if HorizontalFlip:
       self.transforms.append(A.HorizontalFlip())
     if RGBshift is not None:
