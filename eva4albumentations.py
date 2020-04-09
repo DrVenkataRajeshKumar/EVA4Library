@@ -2,7 +2,7 @@ import numpy as np
 import albumentations as A
 from albumentations.pytorch import ToTensor
 class Albumentations:
-  def __init__(self,Normalize_mean_std=None,Rotate=None,HorizontalFlip=False,RGBshift=None,cutout=None):
+  def __init__(self,Normalize_mean_std=None,PadIfNeeded=None,Rotate=None,RandomCrop=None,HorizontalFlip=False,RGBshift=None,cutout=None):
     self.transforms=[]
     if Rotate is not None:
       self.transforms.append(A.Rotate(Rotate))
