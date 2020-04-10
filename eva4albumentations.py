@@ -1,26 +1,54 @@
-import numpy as np
+from torchvision import transforms
 import albumentations as A
-from albumentations.pytorch import ToTensor
-class Albumentations:
-  def __init__(self,Normalize_mean_std=None,PadIfNeeded=None,Rotate=None,RandomCrop=None,HorizontalFlip=False,RGBshift=None,cutout=None):
-    self.transforms=[]
-    if Rotate is not None:
-      self.transforms.append(A.Rotate(Rotate))
-    if PadIfNeeded is not None:
-      self.transforms.append(A.PadIfNeeded(min_height[int],min_width [int]))
-    if RandomCrop is not None:
-      self.transforms.append(A.RandomCrop(RandomCrop))  
-    if HorizontalFlip:
-      self.transforms.append(A.HorizontalFlip())
-    if RGBshift is not None:
-      self.transforms.append(A.RGBShift(*RGBshift))
-    if Normalize_mean_std is not None:
-      self.transforms.append(A.Normalize(Normalize_mean_std[0],Normalize_mean_std[1]))
-    if cutout is not None:
-      self.transforms.append(A.Cutout(*cutout))
-    self.transforms.append(ToTensor())
-    self.Transforms=A.Compose(self.transforms)
-  def __call__(self,img):
-    img=np.array(img)
-    img=self.Transforms(image=img)['image']
-    return img
+import albumentations.pytorch as AP
+import random
+import numpy as np
+
+
+class AlbumentationTransforms:
+  """
+  Helper class to create test and train transforms using Albumentations
+  """
+  def __init__(self, transforms_list=[]):
+    transforms_list.append(AP.ToTensor())
+    
+    self.transforms = A.Compose(transforms_list)
+
+
+  def __call__(self, img):
+    img = np.array(img)
+    #print(img)
+    return self.transforms(image=img)['image']
+
+
+
+class Transforms:
+  """
+  Helper class to create test and train transforms
+  """
+  def __init__(self, normalize=False, mean=None, stdev=None):
+    if normalize and (not mean or not stdev):
+      raise ValueError('mean and stdev both are required for normalize transform')
+  
+    self.normalize=normalize
+    self.mean = mean
+    self.stdev = stdev
+
+  def test_transforms(self):
+    transforms_list = [transforms.ToTensor()]
+    if(self.normalize):
+      transforms_list.append(transforms.Normalize(self.mean, self.stdev))
+    return transforms.Compose(transforms_list)
+
+  def train_transforms(self, pre_transforms=None, post_transforms=None):
+    if pre_transforms:
+      transforms_list = pre_transforms
+    else:
+      transforms_list = []
+    transforms_list.append(transforms.ToTensor())
+
+    if(self.normalize):
+      transforms_list.append(transforms.Normalize(self.mean, self.stdev))
+    if post_transforms:
+      transforms_list.extend(post_transforms)
+    return transforms.Compose(transforms_list)    
