@@ -21,7 +21,6 @@ class AlbumentationTransforms:
     return self.transforms(image=img)['image']
 
 
-
 class Transforms:
   """
   Helper class to create test and train transforms
