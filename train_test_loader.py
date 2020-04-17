@@ -1,7 +1,7 @@
 import torch
 
 #Training & Testing Loops
-from tqdm import tqdm_notebook
+from tqdm_notebook import tqdm
 from PIL import Image
 
 train_losses = []
