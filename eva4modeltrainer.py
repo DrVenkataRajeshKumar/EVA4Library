@@ -143,3 +143,7 @@ class ModelTrainer:
     self.misclass.run()
     # save stats for later lookup
     self.stats.save()
+    
+    def gotrain(self, optimizer, train_loader, test_loader, epochs, statspath, scheduler=None, batch_scheduler=False, L1lambda=0):
+      self.trainer = ModelTrainer(self, optimizer, train_loader, test_loader, statspath, scheduler, batch_scheduler, L1lambda)
+      self.trainer.run(epochs)
