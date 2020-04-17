@@ -1,7 +1,6 @@
 import torch
 
 #Training & Testing Loops
-from tqdm import tqdm
 from tqdm import tqdm_notebook
 from PIL import Image
 
