@@ -2,7 +2,7 @@ import torch
 
 #Training & Testing Loops
 
-from tqdm import tqdm
+from tqdm import tqdm_notebook, tnrange
 
 
 train_losses = []
@@ -12,7 +12,7 @@ test_acc = []
 
 def train(model, device, train_loader, optimizer, criterion, epoch,scheduler = False):
   model.train()
-  pbar = tqdm(train_loader)
+  pbar = tqdm_notebook(train_loader)
   correct = 0
   processed = 0
   for batch_idx, (data, target) in enumerate(pbar):
@@ -55,7 +55,7 @@ def test(model, device, criterion, test_loader):
     test_loss = 0
     correct = 0
     with torch.no_grad():
-        for data, target in tqdm(test_loader):
+        for data, target in tqdm_notebook(test_loader):
             data, target = data.to(device), target.to(device)
             output = model(data)
             test_loss += criterion(output, target).item()  # sum up batch loss
