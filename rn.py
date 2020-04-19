@@ -161,7 +161,7 @@ class ResNet(Net):
         return F.log_softmax(out, dim=-1)
 
 
-def ResNet18(name="Resnet18", num_classes=200):
+def ResNet18(name="Resnet18", num_classes=10):
     return ResNet(BasicBlock, [2,2,2,2], num_classes=num_classes, name=name)
 
 def ResNet34(name="Resnet34", num_classes=10):
